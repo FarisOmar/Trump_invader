@@ -238,7 +238,7 @@ namespace octet {
 
     // use the keyboard to move the ship
     void move_ship() {
-      const float ship_speed = 0.05f;
+      const float ship_speed = 0.05f + 0.05f*(0.10*score); // change 1: score determines speed
       // left and right arrows
       if (is_key_down(key_left)) {
         sprites[ship_sprite].translate(-ship_speed, 0);
@@ -430,7 +430,7 @@ namespace octet {
       GLuint GameOver = resource_dict::get_texture_handle(GL_RGBA, "assets/invaderers/GameOver.gif");
       sprites[game_over_sprite].init(GameOver, 20, 0, 3, 1.5f);
 
-      GLuint invaderer = resource_dict::get_texture_handle(GL_RGBA, "assets/invaderers/invaderer.gif");
+      GLuint invaderer = resource_dict::get_texture_handle(GL_RGBA, "assets/invaderers/invaderer.gif"); // Change 3: Trump instead of invaderer
       for (int j = 0; j != num_rows; ++j) {
         for (int i = 0; i != num_cols; ++i) {
           assert(first_invaderer_sprite + i + j*num_cols <= last_invaderer_sprite);
@@ -528,7 +528,7 @@ namespace octet {
       }
 
       char score_text[32];
-      sprintf(score_text, "score: %d   lives: %d\n", score, num_lives);
+      sprintf(score_text, "score: %d   lives: less than %d\n", score, num_lives+1);	// change 2: "Less than" lives left
       draw_text(texture_shader_, -1.75f, 2, 1.0f/256, score_text);
 
       // move the listener with the camera
